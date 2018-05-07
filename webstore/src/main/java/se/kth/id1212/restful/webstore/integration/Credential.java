@@ -1,6 +1,15 @@
 package se.kth.id1212.restful.webstore.integration;
 
-public class Credential {
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Credential implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     
     private String username;
     private String password;

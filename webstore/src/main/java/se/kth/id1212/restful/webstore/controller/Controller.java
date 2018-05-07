@@ -1,12 +1,17 @@
 package se.kth.id1212.restful.webstore.controller;
 
 import java.util.List;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import se.kth.id1212.restful.webstore.model.CredentialHandler;
 import se.kth.id1212.restful.webstore.model.OrderHandler;
 import se.kth.id1212.restful.webstore.integration.Credential;
 import se.kth.id1212.restful.webstore.integration.OrderEntity;
 
+@Stateless
 public class Controller {
+        
+    @EJB
     private final CredentialHandler credtHD = new CredentialHandler();
     private final OrderHandler orderHD = new OrderHandler();
  

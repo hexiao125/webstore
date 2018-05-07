@@ -1,6 +1,8 @@
 package se.kth.id1212.restful.webstore.view;
 
 import java.util.List;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -15,8 +17,10 @@ import se.kth.id1212.restful.webstore.integration.OrderEntity;
 @Path("/resource")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class ResourceManager {
 
+@Stateless
+public class ResourceManager {
+    @EJB
     private final Controller contr = new Controller();
     
     @GET

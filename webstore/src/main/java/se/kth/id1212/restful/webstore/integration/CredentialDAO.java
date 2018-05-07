@@ -1,10 +1,17 @@
 package se.kth.id1212.restful.webstore.integration;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
+@Stateless
 
 public class CredentialDAO {
-    private static final Map<String, Credential> credtMap = new HashMap<>(); ; 
+    @PersistenceContext(unitName = "credentialPU")
+    private EntityManager em;
     
     public CredentialDAO(){
     }
@@ -13,7 +20,7 @@ public class CredentialDAO {
         String username = credt.getUsername();
         String password = credt.getPassword();
         if(userExist(username)){
-            return credtMap.get(username).getPassword().equals(password);  
+            return em.find(Credential.class, username).getPassword().equals(password);
         }
         return false;       
     }    
@@ -23,14 +30,14 @@ public class CredentialDAO {
         String password = credt.getPassword();
         if(!userExist(username)){
             Credential newCredt= new Credential(username, password);
-            credtMap.put(username,newCredt);
+            em.persist(newCredt);
             return true;
         }
         return false;       
     }
     
     public boolean userExist(String username){
-        return credtMap.containsKey(username);
+        return (em.find(Credential.class, username) != null);
     }
     
 }
